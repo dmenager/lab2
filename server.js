@@ -1,5 +1,12 @@
 var express = require('express');
+var session = require('express-session'); //express-session
 var app = express();
+
+app.use(session({
+    secret: 'server secret'
+}
+))
+
 app.get('/', function(req, res){
 	res.status(200);
 	res.sendFile(__dirname + "/index.html");
