@@ -3,9 +3,11 @@ var session = require('express-session'); //express-session
 var app = express();
 
 app.use(session({
+  genid: function(req) {
+    return genuuid(); // use UUIDs for session IDs
+  }
     secret: 'server secret'
-}
-))
+}))
 
 app.get('/', function(req, res){
 	res.status(200);
