@@ -1,7 +1,7 @@
 //hey
 var express = require('express');
 var app = express();
-var test = 0;
+var test = 4;
 app.get('/', function(req, res){
 	res.status(200);
 	res.sendFile(__dirname + "/index.html");
