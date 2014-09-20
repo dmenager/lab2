@@ -1,42 +1,32 @@
 var express = require('express');
-var session = require('express-session'); //express-session
+//var bodyParser = require('body-parser');
+//var expressSession = require('express-session');
+//var cookieParser = require('cookie-parser');
+//var session = require('express-session'); //express-session
 var app = express();
 
-var guid = function() {
-    function s4() {
-	return Math.floor(( 1 + Math.random()) * 0x10000)
-	.toString(16)
-	.substring(1);
-    }
-    return function() {
-	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
-    };
-};
-
-
+//app.use(cookieParser('secret'));
+/*
 app.use(session({
-  genid: function(req) {
-    //return genuuid(); // use UUIDs for session IDs
-      return guid();
-  },
-    secret: 'server secret',
-    cookie: {}
+    key: 'app.sess',
+    secret: 'SEKR37'
 }));
+*/
 
-app.use(function(req, res, next) {
-    var sess = req.session;
-    res.setHeader('Content-Type', 'text/html');
-    sess.inv = inventory;
-    sess.loc = campus; 
-    res.end();
-});
+var session = 0;
+
 app.get('/', function(req, res){
-	res.status(200);
-	res.sendFile(__dirname + "/index.html");
+    res.status(200);
+    res.sendFile(__dirname + "/index.html");
 });
 
-app.get('/:id', function(req, res){
+app.get('/user', function(req, res){
+    session += 1;
+    res.send(session);
+    console.log(session);
+});
+
+app.get('/:user/:id', function(req, res){
 	if (req.params.id == "inventory") {
 	    res.set({'Content-Type': 'application/json'});
 	    res.status(200);
